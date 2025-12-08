@@ -13,10 +13,10 @@ const Home = () => {
 
 
                     <h1 style={{ fontSize: '3rem', fontWeight: 800, marginBottom: '1rem', background: 'linear-gradient(to right, #fff, #a0a0a0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                        Crafting Digital Products <br /> that Impact Users.
+                        Engineer-Turned-Strategist <br />Crafting Intuitive, Insight-Led Digital Experiences that Impact Users.
                     </h1>
                     <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', maxWidth: '600px', marginBottom: '2rem' }}>
-                        Hi, I'm a Product Manager focused on building intuitive, data-driven solutions. Here is a collection of my work, from concept to launch.
+                        I believe great products are born from clarity, empathy, and relentless iteration.
                     </p>
                     <div style={{ display: 'flex', gap: '1rem' }}>
                         <a href="#work" className="btn btn-primary">

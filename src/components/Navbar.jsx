@@ -13,7 +13,7 @@ const Navbar = () => {
         }}>
             <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Link to="/" style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
-                    Portfolio<span style={{ color: 'var(--accent-primary)' }}>.</span>
+                    Bramhअस्मि<span style={{ color: 'var(--accent-primary)' }}>.</span>
                 </Link>
                 <ul style={{ display: 'flex', gap: '2rem', listStyle: 'none' }}>
                     <li><Link to="/">Work</Link></li>

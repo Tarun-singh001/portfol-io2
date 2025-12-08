@@ -7,7 +7,7 @@ const About = () => {
             {/* Header */}
             <header style={{ marginBottom: '4rem', textAlign: 'center' }}>
                 <h1 style={{ fontSize: '3rem', fontWeight: 800, marginBottom: '0.5rem' }}>Tarun Singh</h1>
-                <p style={{ fontSize: '1.5rem', color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>Product Manager</p>
+                <p style={{ fontSize: '1.5rem', color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>Aspiring Product Manager</p>
 
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
                     <a href="mailto:tarun.singh2002.06@gmail.com" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-muted)' }}>

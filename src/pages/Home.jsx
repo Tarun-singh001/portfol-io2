@@ -14,17 +14,18 @@ const Home = () => {
 
                     <h1 style={{ fontSize: '3rem', fontWeight: 800, marginBottom: '1rem', background: 'linear-gradient(to right, #fff, #a0a0a0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                         Crafting Digital Experiences That <br />Think Like Users and Work Like Systems.
-                        <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', maxWidth: '600px', marginBottom: '2rem' }}>
-                            I believe great products are born from clarity, empathy, and relentless iteration.
-                        </p>
-                        <div style={{ display: 'flex', gap: '1rem' }}>
-                            <a href="#work" className="btn btn-primary">
-                                View My Work <ArrowRight size={20} style={{ marginLeft: '0.5rem' }} />
-                            </a>
-                            <a href="/resume.pdf" target="_blank" className="btn btn-outline">
-                                Resume <Download size={20} style={{ marginLeft: '0.5rem' }} />
-                            </a>
-                        </div>
+                    </h1>
+                    <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', maxWidth: '600px', marginBottom: '2rem' }}>
+                        I believe great products are born from clarity, empathy, and relentless iteration.
+                    </p>
+                    <div style={{ display: 'flex', gap: '1rem' }}>
+                        <a href="#work" className="btn btn-primary">
+                            View My Work <ArrowRight size={20} style={{ marginLeft: '0.5rem' }} />
+                        </a>
+                        <a href="/resume.pdf" target="_blank" className="btn btn-outline">
+                            Resume <Download size={20} style={{ marginLeft: '0.5rem' }} />
+                        </a>
+                    </div>
                 </div>
             </header>
 

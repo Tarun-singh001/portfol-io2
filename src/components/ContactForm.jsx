@@ -1,24 +1,45 @@
-import { useState } from 'react';
-import { Send } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { Send, Loader2 } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const ContactForm = () => {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        message: ''
-    });
+    const form = useRef();
     const [status, setStatus] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Placeholder for EmailJS integration
-        console.log('Form submitted:', formData);
-        setStatus('Thanks! I will get back to you soon.');
-        setFormData({ name: '', email: '', message: '' });
+
+        if (!import.meta.env.VITE_EMAILJS_SERVICE_ID ||
+            !import.meta.env.VITE_EMAILJS_TEMPLATE_ID ||
+            !import.meta.env.VITE_EMAILJS_PUBLIC_KEY) {
+            setStatus('Error: EmailJS configuration missing in .env');
+            return;
+        }
+
+        if (import.meta.env.VITE_EMAILJS_PUBLIC_KEY === 'your_public_key_here') {
+            setStatus('Error: Please configure your EmailJS keys in the .env file.');
+            return;
+        }
+
+        setIsSubmitting(true);
+        setStatus('');
+
+        try {
+            await emailjs.sendForm(
+                import.meta.env.VITE_EMAILJS_SERVICE_ID,
+                import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+                form.current,
+                import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+            );
+            setStatus('Thanks! I will get back to you soon.');
+            form.current.reset();
+        } catch (error) {
+            console.error('EmailJS Error:', error);
+            setStatus('Something went wrong. Please try again later.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const inputStyle = {
@@ -34,45 +55,65 @@ const ContactForm = () => {
 
     return (
         <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-            <form onSubmit={handleSubmit}>
+            <form ref={form} onSubmit={handleSubmit}>
                 <div>
                     <input
                         type="text"
-                        name="name"
+                        name="user_name"
                         placeholder="Your Name"
-                        value={formData.name}
-                        onChange={handleChange}
                         required
                         style={inputStyle}
+                        disabled={isSubmitting}
                     />
                 </div>
                 <div>
                     <input
                         type="email"
-                        name="email"
+                        name="user_email"
                         placeholder="Your Email"
-                        value={formData.email}
-                        onChange={handleChange}
                         required
                         style={inputStyle}
+                        disabled={isSubmitting}
                     />
                 </div>
                 <div>
                     <textarea
                         name="message"
                         placeholder="Ask me anything..."
-                        value={formData.message}
-                        onChange={handleChange}
                         required
                         rows="5"
                         style={{ ...inputStyle, resize: 'vertical' }}
+                        disabled={isSubmitting}
                     />
                 </div>
-                <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
-                    Send Message <Send size={18} style={{ marginLeft: '0.5rem' }} />
+                <button
+                    type="submit"
+                    className="btn btn-primary"
+                    style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    disabled={isSubmitting}
+                >
+                    {isSubmitting ? (
+                        <>Sending... <Loader2 size={18} style={{ marginLeft: '0.5rem', animation: 'spin 1s linear infinite' }} /></>
+                    ) : (
+                        <>Send Message <Send size={18} style={{ marginLeft: '0.5rem' }} /></>
+                    )}
                 </button>
             </form>
-            {status && <p style={{ marginTop: '1rem', color: 'var(--accent-primary)', textAlign: 'center' }}>{status}</p>}
+            {status && (
+                <p style={{
+                    marginTop: '1rem',
+                    color: status.includes('Error') || status.includes('wrong') ? '#ef4444' : 'var(--accent-primary)',
+                    textAlign: 'center'
+                }}>
+                    {status}
+                </p>
+            )}
+            <style>{`
+                @keyframes spin {
+                    from { transform: rotate(0deg); }
+                    to { transform: rotate(360deg); }
+                }
+            `}</style>
         </div>
     );
 };

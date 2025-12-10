@@ -16,9 +16,9 @@ const Navbar = () => {
                     Bramhअस्मि<span style={{ color: 'var(--accent-primary)' }}>.</span>
                 </Link>
                 <ul style={{ display: 'flex', gap: '2rem', listStyle: 'none' }}>
-                    <li><Link to="/">Work</Link></li>
+                    <li><Link to="/#work">Work</Link></li>
                     <li><Link to="/about">About</Link></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><Link to="/#contact">Contact</Link></li>
                 </ul>
             </div>
         </nav>

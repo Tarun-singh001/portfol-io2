@@ -36,7 +36,8 @@ const ContactForm = () => {
             form.current.reset();
         } catch (error) {
             console.error('EmailJS Error:', error);
-            setStatus('Something went wrong. Please try again later.');
+            const errorMessage = error.text || error.message || 'Something went wrong. Please try again later.';
+            setStatus(`Failed: ${errorMessage}`);
         } finally {
             setIsSubmitting(false);
         }

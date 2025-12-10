@@ -1,17 +1,21 @@
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const ProjectCard = ({ title, category, description, id }) => {
     return (
         <Link to={`/project/${id}`} className="project-card" style={{ display: 'block' }}>
-            <div style={{
-                backgroundColor: 'var(--bg-card)',
-                borderRadius: 'var(--radius-md)',
-                overflow: 'hidden',
-                border: '1px solid var(--border-color)',
-                transition: 'all 0.3s ease',
-                height: '100%'
-            }}>
+            <motion.div
+                whileHover={{ y: -8 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                style={{
+                    backgroundColor: 'var(--bg-card)',
+                    borderRadius: 'var(--radius-md)',
+                    overflow: 'hidden',
+                    border: '1px solid var(--border-color)',
+                    height: '100%'
+                }}
+            >
                 {/* Placeholder Image Area */}
                 <div style={{
                     height: '200px',
@@ -36,7 +40,7 @@ const ProjectCard = ({ title, category, description, id }) => {
                         {description}
                     </p>
                 </div>
-            </div>
+            </motion.div>
         </Link>
     );
 };

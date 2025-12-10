@@ -29,7 +29,7 @@ const Home = () => {
                             <a href="#work" className="btn btn-primary">
                                 View My Work <ArrowRight size={20} style={{ marginLeft: '0.5rem' }} />
                             </a>
-                            <a href="/resume.pdf" target="_blank" className="btn btn-outline">
+                            <a href="/resume.pdf" target="_blank" className="btn btn-outline" download>
                                 Resume <Download size={20} style={{ marginLeft: '0.5rem' }} />
                             </a>
                         </div>

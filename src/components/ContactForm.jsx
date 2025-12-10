@@ -10,14 +10,17 @@ const ContactForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // 1. Check Configuration
         if (!import.meta.env.VITE_EMAILJS_SERVICE_ID ||
             !import.meta.env.VITE_EMAILJS_TEMPLATE_ID ||
             !import.meta.env.VITE_EMAILJS_PUBLIC_KEY) {
+            console.error('EmailJS Config Error: Missing environment variables');
             setStatus('Error: EmailJS configuration missing in .env');
             return;
         }
 
         if (import.meta.env.VITE_EMAILJS_PUBLIC_KEY === 'your_public_key_here') {
+            console.error('EmailJS Config Error: Default public key detected');
             setStatus('Error: Please configure your EmailJS keys in the .env file.');
             return;
         }
@@ -25,17 +28,30 @@ const ContactForm = () => {
         setIsSubmitting(true);
         setStatus('');
 
+        // 2. Prepare Template Parameters
+        // explicit mapping to ensure variables match EmailJS template
+        const templateParams = {
+            from_name: form.current.user_name.value,
+            from_email: form.current.user_email.value,
+            message: form.current.message.value,
+        };
+
+        console.log('Sending EmailJS with params:', templateParams);
+
         try {
-            await emailjs.sendForm(
+            // 3. Send Email
+            const result = await emailjs.send(
                 import.meta.env.VITE_EMAILJS_SERVICE_ID,
                 import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-                form.current,
+                templateParams,
                 import.meta.env.VITE_EMAILJS_PUBLIC_KEY
             );
+
+            console.log('EmailJS Success:', result.text);
             setStatus('Thanks! I will get back to you soon.');
             form.current.reset();
         } catch (error) {
-            console.error('EmailJS Error:', error);
+            console.error('EmailJS Error Details:', error);
             const errorMessage = error.text || error.message || 'Something went wrong. Please try again later.';
             setStatus(`Failed: ${errorMessage}`);
         } finally {
@@ -103,7 +119,7 @@ const ContactForm = () => {
             {status && (
                 <p style={{
                     marginTop: '1rem',
-                    color: status.includes('Error') || status.includes('wrong') ? '#ef4444' : 'var(--accent-primary)',
+                    color: status.includes('Error') || status.includes('Failed') ? '#ef4444' : '#10b981', // Red for error, Green for success
                     textAlign: 'center'
                 }}>
                     {status}
